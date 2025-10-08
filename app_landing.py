@@ -14,39 +14,9 @@ st.set_page_config(page_title="Nexus Scout", page_icon="🧭", layout="centered"
 st.title("🧭 Nexus Scout")
 st.subheader("Upload your activity CSV to get started")
 st.caption(
-    "Expected columns: **date**, **jurisdiction** (or state), **hours**. "
-    "You can change names later — this step is just to load a file and preview it."
+    "Expected columns: **date**, **jurisdiction** (or state), **hours**. 
 )
 
-################################
-# Sample & Helper 
-################################
-
-# sample CSV for download
-SAMPLE_CSV = """date,jurisdiction,hours
-2025-06-01,AR,12
-2025-06-05,AR,6
-2025-07-15,MO,14
-2025-08-20,OK,22
-"""
-
-col_a, col_b = st.columns([1,1])
-with col_a:
-    st.download_button(
-        "Download sample CSV",
-        data=SAMPLE_CSV.encode("utf-8"),
-        file_name="nexus_sample.csv",
-        mime="text/csv",
-        help="Grab an example file to test the upload."
-    )
-with col_b:
-    st.link_button(
-        "View expected schema",
-        url="#expected-schema",
-        help="Jump to the short description below"
-    )
-
-st.divider()
 
 #################################
 # Uploader 
