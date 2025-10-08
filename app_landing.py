@@ -14,7 +14,7 @@ st.set_page_config(page_title="Nexus Scout", page_icon="🧭", layout="centered"
 st.title("🧭 Nexus Scout")
 st.subheader("Upload your activity CSV to get started")
 st.caption(
-    "Expected columns: **date**, **jurisdiction** (or state), **hours**. 
+    "Expected columns: **date**, **jurisdiction** (or state), **hours**. "
 )
 
 
