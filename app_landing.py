@@ -14,9 +14,8 @@ st.set_page_config(page_title="Nexus Scout", page_icon="🧭", layout="centered"
 st.title("🧭 Nexus Scout")
 st.subheader("Upload your activity CSV to get started")
 st.caption(
-    "Expected columns: **date**, **jurisdiction** (or state), **hours**. "
+    "Expected columns:PLACEHOLDER"
 )
-
 
 #################################
 # Uploader 
@@ -41,15 +40,13 @@ else:
         if "jurisdiction" in lowered: schema_map[lowered["jurisdiction"]] = "jurisdiction"
         if "state" in lowered and "jurisdiction" not in lowered:
             schema_map[lowered["state"]] = "jurisdiction"
-        if "hours" in lowered: schema_map[lowered["hours"]] = "hours"
+
 
         df_preview = df.rename(columns=schema_map).copy()
         if "date" in df_preview.columns:
             df_preview["date"] = pd.to_datetime(df_preview["date"], errors="coerce")
         if "jurisdiction" in df_preview.columns:
             df_preview["jurisdiction"] = df_preview["jurisdiction"].astype(str)
-        if "hours" in df_preview.columns:
-            df_preview["hours"] = pd.to_numeric(df_preview["hours"], errors="coerce")
 
         st.success(f"Loaded {len(df):,} rows.")
         st.markdown("**Preview (first 100 rows)**")
@@ -64,9 +61,9 @@ else:
         st.divider()
         st.markdown("### Next step")
         st.caption(
-            "Looks good? In the next iteration we’ll map your columns and move on to rules & visuals."
+            "Click below to run intial analysis"
         )
-        st.button("Continue (disabled for this landing‑page build)", disabled=True)
+        st.button("Continue", disabled=False)
 
     except Exception as e:
         st.error(f"Could not read the CSV: {e}")
