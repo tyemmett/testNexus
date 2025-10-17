@@ -73,8 +73,8 @@ else:
 
                 Provide a concise summary of:
                 1. Which nexus thresholds appear to be met (based on any columns indicating thresholds or boolean flags).
-                2. Which states are close to thresholds and might need follow-up.
-                3. What questions an analyst should consider before accepting or adjusting hours estimates.
+                2. Which states are within 10% of thresholds and might need follow-up. 
+                3. What questions an analyst should consider before accepting or adjusting hours estimates. These should be state-specific recommendations.
                 4. Any general data quality issues or missing fields worth noting.
                 Keep it concise and analytical, focused on nexus interpretation.
                 """
