@@ -66,7 +66,7 @@ else:
                 You are an assistant tax consultant estimating engagement hours based on nexus requirements for small businesses.
                 The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
 
-                Here is a sample of the data:
+                Here is the data:
                 ```
                 {sample_csv}
                 ```
@@ -76,7 +76,7 @@ else:
                 2. Which states are within 10% of thresholds and might need follow-up. 
                 3. Make State Specific recommendations on what questions an analyst should consider before accepting or adjusting hours estimates. 
                 4. Any general data quality issues or missing fields worth noting.
-                Keep it concise and analytical, focused on nexus interpretation.
+                Keep it concise and analytical, focused on nexus interpretation and actionable.
                 """
 
                 response = client.chat.completions.create(
