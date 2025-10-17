@@ -4,7 +4,8 @@ import streamlit as st
 from openai import OpenAI
 
 # Initialize the OpenAI client (make sure your OPENAI_API_KEY is set in environment)
-client = OpenAI(st.secrets["OPENAI_API_KEY"])
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
 
 
 st.set_page_config(page_title="Nexus Scout", page_icon="🧭", layout="centered")
