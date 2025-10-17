@@ -63,20 +63,33 @@ else:
                 sample_csv = df.head(10).to_csv(index=False)
 
                 summary_prompt = f"""
-                You are an assistant tax consultant estimating engagement hours based on nexus requirements for small businesses.
-                The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
+                You are a tax nexus analyst reviewing state-level data to estimate engagement hours.
+                You will receive a small dataset with one row per state.
 
-                Here is the data:
+                Dataset overview:
+                - Total rows: {len(df)}
+                - Columns: {list(df.columns)}
+
+                Here is the data :
                 ```
                 {sample_csv}
                 ```
+                Your task:
+                1. Review the data and interpret each state's nexus position using the columns provided 
+               (e.g., TotalSales, Transactions, PhysicalFootprint, Employees, and thresholds).
+                2. For each state, summarize:
+                   - Whether the nexus threshold appears **met**, **within 10% of being met**, or **not close**.
+                   - A short, state-specific recommendation (e.g., questions to ask, trends to check, 
+                     or actions to confirm/monitor).
+                3. Provide an overall summary:
+                   - How many states are met / close / far.
+                   - Where to prioritize analysis time.
+                4. Mention any obvious data quality issues or missing columns.
 
-                Provide a concise summary of:
-                1. Which nexus thresholds appear to be met (based on any columns indicating thresholds or boolean flags).
-                2. Which states are within 10% of thresholds and might need follow-up. 
-                3. Make State Specific recommendations on what questions an analyst should consider before accepting or adjusting hours estimates. 
-                4. Any general data quality issues or missing fields worth noting.
-                Keep it concise and analytical, focused on nexus interpretation and actionable.
+                Guidelines:
+                - Use clear, bullet-point summaries by state.
+                - Keep your tone professional and analytical, like a consultant’s workpaper summary.
+                - Assume this is mock data for planning, not real tax advice.
                 """
 
                 response = client.chat.completions.create(
