@@ -74,14 +74,14 @@ else:
                 Provide a concise summary of:
                 1. Which nexus thresholds appear to be met (based on any columns indicating thresholds or boolean flags).
                 2. Which states are within 10% of thresholds and might need follow-up. 
-                3. What questions an analyst should consider before accepting or adjusting hours estimates. These should be state-specific recommendations.
+                3. Make State Specific recommendations on what questions an analyst should consider before accepting or adjusting hours estimates. 
                 4. Any general data quality issues or missing fields worth noting.
                 Keep it concise and analytical, focused on nexus interpretation.
                 """
 
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    temperature=0.3,
+                    temperature=0.2,
                     messages=[{"role": "user", "content": summary_prompt}],
                 )
 
