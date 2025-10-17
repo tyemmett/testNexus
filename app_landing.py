@@ -59,22 +59,35 @@ else:
 
         if st.button("Continue", disabled=False):
             with st.spinner("Calling OpenAI API..."):
-                # Create a message summarizing the uploaded data
-                summary_prompt = f"""
-                You are an assistant tax consultant estimating engagement hours based on nexus requirements for small businesses.
-                The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
-                Provide a short, summary of what neuxs thresholds are met and what questions the analyst should consider before 
-                accepting the hours estimate. As an example, if they are close to the threshold, it might be good to understand trends.
-                """
+            # Limit rows for prompt safety
+            sample_csv = df.head(10).to_csv(index=False)
 
-                response = client.chat.completions.create(
-                    model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": summary_prompt}],
-                )
+            summary_prompt = f"""
+            You are an assistant tax consultant estimating engagement hours based on nexus requirements for small businesses.
+            The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
 
-                st.success("✅ Analysis complete!")
-                st.markdown("### OpenAI Analysis Summary")
-                st.write(response.choices[0].message.content)
+            Here is a sample of the data:
+            ```
+            {sample_csv}
+            ```
+
+            Provide a concise summary of:
+            1. Which nexus thresholds appear to be met (based on any columns indicating thresholds or boolean flags).
+            2. Which states are close to thresholds and might need follow-up.
+            3. What questions an analyst should consider before accepting or adjusting hours estimates.
+            4. Any general data quality issues or missing fields worth noting.
+            Keep it concise and analytical, focused on nexus interpretation.
+            """
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                temperature=0.3,
+                messages=[{"role": "user", "content": summary_prompt}],
+            )
+
+            st.success("✅ Analysis complete!")
+            st.markdown("### OpenAI Analysis Summary")
+            st.write(response.choices[0].message.content)
 
     except Exception as e:
         st.error(f"Could not read the CSV: {e}")
