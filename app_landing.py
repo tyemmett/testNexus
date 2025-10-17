@@ -61,10 +61,10 @@ else:
             with st.spinner("Calling OpenAI API..."):
                 # Create a message summarizing the uploaded data
                 summary_prompt = f"""
-                You are a data assistant. 
+                You are an assistant tax consultant estimating engagement hours based on nexus requirements for small businesses.
                 The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
-                Provide a short, friendly summary of what this dataset might represent and 
-                what kinds of initial analyses could be performed.
+                Provide a short, summary of what neuxs thresholds are met and what questions the analyst should consider before 
+                accepting the hours estimate. As an example, if they are close to the threshold, it might be good to understand trends.
                 """
 
                 response = client.chat.completions.create(
