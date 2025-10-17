@@ -1,24 +1,23 @@
-# Purpose: A minimal Streamlit landing page with a CSV upload to get started. testing functions of streamlit.
-
 from datetime import datetime
-
 import pandas as pd
 import streamlit as st
+from openai import OpenAI
+
+# Initialize the OpenAI client (make sure your OPENAI_API_KEY is set in environment)
+client = OpenAI(st.secrets["open_ai_key"])
+
 
 st.set_page_config(page_title="Nexus Scout", page_icon="🧭", layout="centered")
 
 #################################
 # Header
 #################################
-
 st.title("🧭 Nexus Scout")
 st.subheader("Upload your activity CSV to get started")
-st.caption(
-    "Expected columns:PLACEHOLDER"
-)
+st.caption("Expected columns: PLACEHOLDER")
 
 #################################
-# Uploader 
+# Uploader
 #################################
 uploaded = st.file_uploader(
     "Drop a CSV here or click to browse",
@@ -29,18 +28,14 @@ uploaded = st.file_uploader(
 if not uploaded:
     st.info("No file yet — upload a CSV to see a preview.")
 else:
-    # Basic ingestion 
     try:
         df = pd.read_csv(uploaded)
-        # Make soft conversions for a friendlier preview; this is not strict validation
         lowered = {c.lower(): c for c in df.columns}
-        # Show a soft mapping for common names
         schema_map = {}
         if "date" in lowered: schema_map[lowered["date"]] = "date"
         if "jurisdiction" in lowered: schema_map[lowered["jurisdiction"]] = "jurisdiction"
         if "state" in lowered and "jurisdiction" not in lowered:
             schema_map[lowered["state"]] = "jurisdiction"
-
 
         df_preview = df.rename(columns=schema_map).copy()
         if "date" in df_preview.columns:
@@ -52,7 +47,6 @@ else:
         st.markdown("**Preview (first 100 rows)**")
         st.dataframe(df_preview.head(100), use_container_width=True)
 
-        # Light status chips 
         cols = st.columns(3)
         cols[0].metric("Columns detected", len(df.columns))
         cols[1].metric("Rows detected", len(df))
@@ -60,12 +54,29 @@ else:
 
         st.divider()
         st.markdown("### Next step")
-        st.caption(
-            "Click below to run intial analysis"
-        )
-        st.button("Continue", disabled=False)
+        st.caption("Click below to run initial analysis")
+
+        if st.button("Continue", disabled=False):
+            with st.spinner("Calling OpenAI API..."):
+                # Create a message summarizing the uploaded data
+                summary_prompt = f"""
+                You are a data assistant. 
+                The dataset has {len(df)} rows and {len(df.columns)} columns: {list(df.columns)}.
+                Provide a short, friendly summary of what this dataset might represent and 
+                what kinds of initial analyses could be performed.
+                """
+
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": summary_prompt}],
+                )
+
+                st.success("✅ Analysis complete!")
+                st.markdown("### OpenAI Analysis Summary")
+                st.write(response.choices[0].message.content)
 
     except Exception as e:
         st.error(f"Could not read the CSV: {e}")
 
 st.divider()
+
