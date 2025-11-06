@@ -90,6 +90,8 @@ else:
                 - Use clear, bullet-point summaries by state.
                 - Keep your tone professional and analytical, like a consultant’s workpaper summary.
                 - Assume this is mock data for planning, not real tax advice.
+                - Questions and analysis should focus on the task of estimating hours for the engagement, not increasing sales, etc.
+                - Give an estimate of hours for the company and explain why that estimate.
                 """
 
                 response = client.chat.completions.create(
