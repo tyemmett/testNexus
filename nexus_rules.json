@@ -1,0 +1,102 @@
+{
+  "Arkansas": {
+    "rules": [
+      {
+        "id": "registered_in_state",
+        "type": "boolean",
+        "field": "registered_in_state",
+        "operator": "==",
+        "value": true
+      },
+      {
+        "id": "gross_receipts_derived_from_AR",
+        "type": "numeric",
+        "field": "revenue_AR",
+        "operator": ">",
+        "value": 0
+      },
+      {
+        "id": "property_employees_or_office_in_AR",
+        "type": "boolean",
+        "field": "has_property_or_employees_AR",
+        "operator": "==",
+        "value": true
+      }
+    ]
+  },
+  "Texas": {
+    "rules": [
+      {
+        "id": "revenue_over_2_5M",
+        "type": "numeric",
+        "field": "revenue_TX",
+        "operator": ">",
+        "value": 2500000
+      },
+      {
+        "id": "registered_in_state",
+        "type": "boolean",
+        "field": "registered_in_state",
+        "operator": "==",
+        "value": true
+      },
+      {
+        "id": "property_employees_or_office_in_TX",
+        "type": "boolean",
+        "field": "has_property_or_employees_TX",
+        "operator": "==",
+        "value": true
+      }
+    ]
+  },
+  "Oklahoma": {
+    "rules": [
+      {
+        "id": "doing_business_in_state",
+        "type": "boolean",
+        "field": "doing_business_OK",
+        "operator": "==",
+        "value": true
+      },
+      {
+        "id": "gross_receipts_derived_in_OK",
+        "type": "numeric",
+        "field": "revenue_OK",
+        "operator": ">",
+        "value": 0
+      },
+      {
+        "id": "property_employees_or_office_in_OK",
+        "type": "boolean",
+        "field": "has_property_or_employees_OK",
+        "operator": "==",
+        "value": true
+      }
+    ]
+  },
+  "Missouri": {
+    "rules": [
+      {
+        "id": "gross_receipts_over_100_derived_from_MO",
+        "type": "numeric",
+        "field": "revenue_MO",
+        "operator": ">",
+        "value": 100
+      },
+      {
+        "id": "registered_in_state",
+        "type": "boolean",
+        "field": "registered_in_state",
+        "operator": "==",
+        "value": true
+      },
+      {
+        "id": "property_employees_or_office_in_MO",
+        "type": "boolean",
+        "field": "has_property_or_employees_MO",
+        "operator": "==",
+        "value": true
+      }
+    ]
+  }
+}

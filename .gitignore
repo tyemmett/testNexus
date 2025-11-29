@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+
+# Local environment variables
+.env
+
+# Streamlit secrets (DO NOT COMMIT REAL KEYS)
+.streamlit/secrets.toml
+
+# Local artifacts
+model.joblib
+metrics.json
+
+# OS/editor files
+.DS_Store
+Thumbs.db
